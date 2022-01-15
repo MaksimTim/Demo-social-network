@@ -8,9 +8,10 @@ const Post = (props) => {
         src="https://download-cs.org/uploads/posts/2020-06/1593142222_5.jpg"
         alt="аватарка"
       />
-      {props.massage}
+      {props.message}
       <div>
-        <span>Like</span>
+        <span>Like:</span>
+        {props.likesCount}
       </div>
     </div>
   )
