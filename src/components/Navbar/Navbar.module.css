@@ -13,3 +13,20 @@
   color: saddlebrown;
   text-decoration: none;
 }
+
+.myFriends {
+  padding-top: 50px;
+}
+
+.friendsList {
+  padding-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+}
+
+.friendsList img {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
