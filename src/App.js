@@ -26,7 +26,11 @@ const App = (props) => {
           <Route
             path="/dialogs*"
             element={
-              <Dialogs dialogs={props.dialogs} messages={props.messages} />
+              <Dialogs
+                dialogs={props.dialogs}
+                messages={props.messages}
+                dispatch={props.dispatch}
+              />
             }
           />
         </Routes>
