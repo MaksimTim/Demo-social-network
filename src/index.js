@@ -16,6 +16,7 @@ let rerenderEntireTree = (state) => {
           messages={state.dialogsPage.messages}
           friends={state.navPage.friends}
           newPostText={state.profilePage.newPostText}
+          newMessageText={state.dialogsPage.newMessageText}
           dispatch={store.dispatch.bind(store)}
         />
       </BrowserRouter>

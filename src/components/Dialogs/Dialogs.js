@@ -2,7 +2,8 @@ import React from 'react'
 import {
   addMessageActionCreator,
   undateNewMessageTextActionCreator,
-} from '../../redux/state'
+} from '../../redux/dialogs-reducer'
+
 import DialogItem from './DialogItem/DialogItem'
 import s from './Dialogs.module.css'
 import Message from './Message/Message'
@@ -22,8 +23,8 @@ const Dialogs = (props) => {
     props.dispatch(addMessageActionCreator())
   }
 
-  let onMessageChange = () => {
-    let text = newMessageElement.current.value
+  let onMessageChange = (event) => {
+    let text = event.target.value
     props.dispatch(undateNewMessageTextActionCreator(text))
   }
 
@@ -34,6 +35,7 @@ const Dialogs = (props) => {
         {messagesElements}
         <div>
           <textarea
+            placeholder="AAAAAAAAAAAA"
             onChange={onMessageChange}
             ref={newMessageElement}
             value={props.newMessageText}

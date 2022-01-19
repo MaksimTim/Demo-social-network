@@ -29,6 +29,7 @@ const App = (props) => {
               <Dialogs
                 dialogs={props.dialogs}
                 messages={props.messages}
+                newMessageText={props.newMessageText}
                 dispatch={props.dispatch}
               />
             }
