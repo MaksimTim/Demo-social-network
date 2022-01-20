@@ -1,9 +1,4 @@
 import React from 'react'
-import {
-  addMessageActionCreator,
-  undateNewMessageTextActionCreator,
-} from '../../redux/dialogs-reducer'
-
 import DialogItem from './DialogItem/DialogItem'
 import s from './Dialogs.module.css'
 import Message from './Message/Message'
@@ -19,13 +14,13 @@ const Dialogs = (props) => {
 
   let newMessageElement = React.createRef()
 
-  let addMessage = () => {
-    props.dispatch(addMessageActionCreator())
+  let onAddMessage = () => {
+    props.addMessage()
   }
 
   let onMessageChange = (event) => {
     let text = event.target.value
-    props.dispatch(undateNewMessageTextActionCreator(text))
+    props.undateNewMessageText(text)
   }
 
   return (
@@ -44,7 +39,7 @@ const Dialogs = (props) => {
           ></textarea>
         </div>
         <div>
-          <button onClick={addMessage}>Add message</button>
+          <button onClick={onAddMessage}>Add message</button>
         </div>
       </div>
     </div>
