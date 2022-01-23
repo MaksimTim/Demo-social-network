@@ -5,7 +5,7 @@ import s from './Navbar.module.css'
 
 const Navbar = (props) => {
   let friendsElement = props.friends.map((friend) => (
-    <MyFriends name={friend.name} />
+    <MyFriends name={friend.name} key={friend.id} />
   ))
 
   return (

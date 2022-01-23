@@ -5,32 +5,18 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import store from './redux/redux-store'
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
 
-let rerenderEntireTree = (state) => {
-  ReactDOM.render(
-    <React.StrictMode>
-      <BrowserRouter>
-        <App
-          posts={state.profilePage.posts}
-          dialogs={state.dialogsPage.dialogs}
-          messages={state.dialogsPage.messages}
-          friends={state.navPage.friends}
-          newPostText={state.profilePage.newPostText}
-          newMessageText={state.dialogsPage.newMessageText}
-          dispatch={store.dispatch.bind(store)}
-        />
-      </BrowserRouter>
-    </React.StrictMode>,
-    document.getElementById('root')
-  )
-}
-
-rerenderEntireTree(store.getState())
-
-store.subscribe(() => {
-  let state = store.getState()
-  rerenderEntireTree(state)
-})
+ReactDOM.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App friends={store.getState().navPage.friends} />
+      </Provider>
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root')
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
