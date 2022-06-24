@@ -1,16 +1,20 @@
 import './App.css'
-import React from 'react'
+import React, {Suspense} from 'react'
 import Navbar from './components/Navbar/Navbar'
-import {Route, Routes} from 'react-router-dom'
-import DialogsContainer from './components/Dialogs/DialogsContainer'
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import UsersContainer from './components/Users/UsersContainer'
-import ProfileContainer, {withRouter} from "./components/Profile/ProfileContainer"
+import {withRouter} from "./components/Profile/ProfileContainer"
 import HeaderContainer from "./components/Header/HeaderContainer"
-import LoginPage from "./components/Login/Login"
-import {connect} from "react-redux"
+import {connect, Provider} from "react-redux"
 import {compose} from "redux"
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
+import store from './redux/redux-store'
+
+const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"))
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
+const LoginPage = React.lazy(() => import("./components/Login/Login"))
+
 
 class App extends React.Component {
     componentDidMount() {
@@ -27,13 +31,15 @@ class App extends React.Component {
                 <HeaderContainer/>
                 <Navbar friends={this.props.friends}/>
                 <div className="app-wrapper-content">
-                    <Routes>
-                        <Route path='/profile/:userId' element={<ProfileContainer/>}/>
-                        <Route path="/profile" element={<ProfileContainer/>}/>
-                        <Route path="/dialogs*" element={<DialogsContainer/>}/>
-                        <Route path="/users*" element={<UsersContainer/>}/>
-                        <Route path="/login" element={<LoginPage/>}/>
-                    </Routes>
+                    <Suspense fallback={<Preloader/>}>
+                        <Routes>
+                            <Route path='/profile/:userId' element={<ProfileContainer/>}/>
+                            <Route path="/profile" element={<ProfileContainer/>}/>
+                            <Route path="/dialogs*" element={<DialogsContainer/>}/>
+                            <Route path="/users*" element={<UsersContainer/>}/>
+                            <Route path="/login" element={<LoginPage/>}/>
+                        </Routes>
+                    </Suspense>
                 </div>
             </div>
         )
@@ -44,7 +50,18 @@ const mapStateToProps = (state) => ({
     initialized: state.app.initialized
 })
 
-export default compose(
+const AppContainer = compose(
     withRouter,
     connect(mapStateToProps, {initializeApp}))(App)
 
+const SamuraiJSApp = (props) => {
+    return <React.StrictMode>
+        <BrowserRouter>
+            <Provider store={store}>
+                <AppContainer friends={store.getState().navPage.friends}/>
+            </Provider>
+        </BrowserRouter>
+    </React.StrictMode>
+}
+
+export default SamuraiJSApp
