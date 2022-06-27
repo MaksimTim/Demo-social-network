@@ -1,7 +1,7 @@
 import './App.css'
 import React, {Suspense} from 'react'
 import Navbar from './components/Navbar/Navbar'
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import {HashRouter, Route, Routes} from 'react-router-dom'
 import UsersContainer from './components/Users/UsersContainer'
 import {withRouter} from "./components/Profile/ProfileContainer"
 import HeaderContainer from "./components/Header/HeaderContainer"
@@ -56,11 +56,11 @@ const AppContainer = compose(
 
 const SamuraiJSApp = (props) => {
     return <React.StrictMode>
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={store}>
                 <AppContainer friends={store.getState().navPage.friends}/>
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     </React.StrictMode>
 }
 
